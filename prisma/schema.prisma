@@ -13,12 +13,32 @@ datasource db {
 //map переименовывыает название таблицы, я использую snake_case
 
 model User {
-  id Int @id @default(autoincrement())
+  id        Int      @id @default(autoincrement())
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
-  email String @unique
-  name String 
+  email    String   @unique
+  name     String
   password String
-  images String[]
+  images   String[]
+}
+
+model Workout {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  name      String
+  exercises Exercise[]
+}
+
+model Exercise {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  name      String
+  times     Int
+  iconPath  String   @map("icon_path")
+  workouts   Workout[]
 }
