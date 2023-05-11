@@ -7,7 +7,6 @@ import { UserFields } from '../utils/user.util.js'
 //@route GET /api/auth/profile
 //@access Private
 export const getUserProfile = asyncHandler(async (req, res) => {
-	console.log('!!!!!!!!!')
 	const user = await prisma.user.findUnique({
 		where: {
 			id: 2

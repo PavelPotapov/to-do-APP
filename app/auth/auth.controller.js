@@ -58,6 +58,5 @@ export const registerUser = asyncHandler(async (req, res) => {
 	})
 
 	const token = generateToken(user.id)
-	console.log(token)
 	res.json({ user, token })
 })

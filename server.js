@@ -1,13 +1,13 @@
 import 'colors'
 import dotenv from 'dotenv'
 import express from 'express'
-import jswb from 'jsonwebtoken'
+import jsw from 'jsonwebtoken'
 import morgan from 'morgan'
 import path from 'path'
 
 import authRoutes from './app/auth/auth.routes.js'
 import exerciseRoutes from './app/exercise/exercise.routes.js'
-import { protect } from './app/middleware/auth.middleware.js'
+import workoutRoutes from './app/workout/workout.routes.js'
 import { errorHandler, notFound } from './app/middleware/error.middleware.js'
 import { prisma } from './app/prisma.js'
 import userRoutes from './app/user/user.routes.js'
@@ -19,8 +19,8 @@ const app = express()
 async function main() {
 	if (process.env.NODE_ENV === 'development') app.use(morgan('dev'))
 
-	const token = jswb.sign('1', process.env.JWT_SECRET)
-	console.log(token.toString().red.bold)
+	//onst token = jsw.sign('1', process.env.JWT_SECRET)
+	//console.log(token.toString().red.bold)
 
 	app.use(express.json())
 
@@ -30,6 +30,7 @@ async function main() {
 	app.use('/api/auth', authRoutes)
 	app.use('/api/users', userRoutes)
 	app.use('/api/exercises', exerciseRoutes)
+	app.use('/api/workouts', workoutRoutes)
 
 	app.use(notFound)
 	app.use(errorHandler)

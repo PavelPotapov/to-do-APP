@@ -1,13 +1,16 @@
-import AsyncHandler from 'express-async-handler'
-import jwt from 'jsonwebtoken'
+import AsyncHandler from 'express-async-handler';
+import jwt from 'jsonwebtoken';
 
-import { prisma } from '../prisma.js'
-import { UserFields } from '../utils/user.util.js'
+
+
+import { prisma } from '../prisma.js';
+import { UserFields } from '../utils/user.util.js';
+
 
 export const protect = AsyncHandler(async (req, res, next) => {
-	let token, token1
+	let token
 	token = req.headers.authorization
-	token1 = req.body.authorization //пока не знаю, как лучше передавать токен авторизации, через тело или в заголовках, по идее это GET, но использую тело (Необычно)
+	token = token.split(' ')[1]
 
 	const decoded = jwt.verify(token, process.env.JWT_SECRET)
 

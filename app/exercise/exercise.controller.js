@@ -46,7 +46,11 @@ export const updateExercises = asyncHandler(async (req, res) => {
 //@route GET /api/exercises
 //@access Private
 export const getExercises = asyncHandler(async (req, res) => {
-	const exercises = await prisma.exercise.findMany()
+	const exercises = await prisma.exercise.findMany({
+		orderBy: {
+			createdAt: 'desc'
+		}
+	})
 	res.json(exercises)
 })
 
@@ -57,7 +61,6 @@ export const getExercises = asyncHandler(async (req, res) => {
 export const deleteExercises = asyncHandler(async (req, res) => {
 	try {
 		const exercisesId = req.query.exercisesId
-		console.log(typeof exercisesId)
 		const exercises = await prisma.exercise.delete({
 			where: {
 				id: Number(exercisesId)
